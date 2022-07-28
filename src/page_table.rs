@@ -11,6 +11,7 @@ pub fn map_elf(
 ) -> Result<(), MapToError<Size4KiB>> {
     info!("mapping ELF");
     let kernel_start = PhysAddr::new(elf.input.as_ptr() as u64);
+    info!("kernel_start={:#x}", kernel_start.as_u64());
     for segment in elf.program_iter() {
         map_segment(&segment, kernel_start, page_table, frame_allocator)?;
     }
