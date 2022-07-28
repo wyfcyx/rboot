@@ -59,7 +59,7 @@ fn map_segment(
     let file_offset = segment.offset() & !0xfff;
     let phys_start_addr = kernel_start + file_offset;
     let virt_start_addr = VirtAddr::new(segment.virtual_addr());
-    info!("start_pa={:#x},start_pa={:#x}", phys_start_addr.as_u64(), virt_start_addr.as_u64());
+    info!("start_pa={:#x},start_va={:#x}", phys_start_addr.as_u64(), virt_start_addr.as_u64());
 
     let start_page: Page = Page::containing_address(virt_start_addr);
     let start_frame = PhysFrame::containing_address(phys_start_addr);
