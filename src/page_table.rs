@@ -53,12 +53,13 @@ fn map_segment(
     if segment.get_type().unwrap() != program::Type::Load {
         return Ok(());
     }
-    debug!("mapping segment: {:#x?}", segment);
+    info!("mapping segment: {:#x?}", segment);
     let mem_size = segment.mem_size();
     let file_size = segment.file_size();
     let file_offset = segment.offset() & !0xfff;
     let phys_start_addr = kernel_start + file_offset;
     let virt_start_addr = VirtAddr::new(segment.virtual_addr());
+    info!("start_pa={:#x},start_pa={:#x}", phys_start_addr.as_u64(), virt_start_addr.as_u64());
 
     let start_page: Page = Page::containing_address(virt_start_addr);
     let start_frame = PhysFrame::containing_address(phys_start_addr);
